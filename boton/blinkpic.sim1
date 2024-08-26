@@ -1,0 +1,165 @@
+<circuit version="1.1.0-SR0" rev="1917" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="Subcircuit" CircId="74HC595-167" mainComp="false" Show_id="false" Show_Val="false" Pos="-380,-280" rotation="-360" hflip="-1" vflip="1" label="74HC595-32" idLabPos="0,-20" labelrot="0" valLabPos="13,36" valLabRot="-90" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+09 Ω" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" Logic_Symbol="false" />
+
+<item itemtype="MCU" CircId="p12f675-9" mainComp="false" Show_id="true" Show_Val="false" Pos="-516,-264" rotation="0" hflip="1" vflip="1" label="pic12f675-154" idLabPos="-17.7566,-20.8456" labelrot="0" valLabPos="0,0" valLabRot="0" Frequency="20 MHz" Program="blink.hex" Auto_Load="false" saveEepr="true" Rst_enabled="false" Ext_Osc="false" Wdt_enabled="false" Clk_Out="false" eeprom="58,48,50,48,48,48,48,48,52,48,48,48,48,70,65,10,58,49,48,48,48,48,48,48,48,48,48,48,48,48,50,50,56,48,68,51,48,65,69,48,48,48,49,51,48,65,70,48,48,56,48,51,48,48,48,48,48,52,66,10,58,49,48,48,48,49,48,48,48,48,48,48,48,66,49,50,48,48,48,48,48,48,48,48,48,56,51,49,50,48,48,48,48,66,49,48,48,50,70,48,56,57,50,10,58,49,48,48,48,50,48,48,48,66,48,48,48,48,70,51,48,66,50,48,48,48,49,51," />
+
+<item itemtype="Fixed Voltage" CircId="Fixed Voltage-25" mainComp="false" Show_id="false" Show_Val="true" Pos="-672,-316" rotation="0" hflip="1" vflip="1" label="Fixed Voltage-25" idLabPos="-64,-24" labelrot="0" valLabPos="-16,8" valLabRot="0" Voltage="5 V" Out="true" />
+
+<item itemtype="Push" CircId="Push-29" mainComp="false" Show_id="false" Show_Val="false" Pos="-632,-272" rotation="90" hflip="1" vflip="1" label="Push-29" idLabPos="-16,-24" labelrot="0" valLabPos="0,0" valLabRot="0" Norm_Close="false" Poles="1" />
+
+<item itemtype="Resistor" CircId="Resistor-56" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-632,-188" rotation="90" hflip="1" vflip="1" label="Resistor-56" idLabPos="-12,-20" labelrot="0" valLabPos="-16,6" valLabRot="0" Resistance="10 kΩ" />
+
+<item itemtype="Capacitor" CircId="Capacitor-78" mainComp="false" ShowProp="Capacitance" Show_id="false" Show_Val="true" Pos="-580,-188" rotation="-90" hflip="1" vflip="1" label="Capacitor-78" idLabPos="-16,-24" labelrot="0" valLabPos="-16,8" valLabRot="90" Capacitance="10 nF" Resistance="1 µΩ" InitVolt="0 V" ReaStep="0 ns" />
+
+<item itemtype="Ground" CircId="Ground-79" mainComp="false" Show_id="false" Show_Val="false" Pos="-632,-96" rotation="0" hflip="1" vflip="1" label="Ground-79" idLabPos="-16,8" labelrot="0" valLabPos="0,0" valLabRot="0" />
+
+<item itemtype="Probe" CircId="Probe-90" mainComp="false" Show_id="false" Show_Val="true" Pos="-616,-320" rotation="-45" hflip="1" vflip="1" label="Probe-90" idLabPos="16,-16" labelrot="45" valLabPos="16,0" valLabRot="45" ShowVolt="true" Threshold="2.5 V" />
+
+<item itemtype="Seven Segment" CircId="Seven Segment-160" mainComp="false" Show_id="false" Show_Val="false" Pos="-252,-248" rotation="0" hflip="1" vflip="1" label="Seven Segment-160" idLabPos="20,-44" labelrot="0" valLabPos="0,0" valLabRot="0" Color="Yellow" NumDisplays="1" Vertical_Pins="false" CommonCathode="true" Threshold="2.4 V" MaxCurrent="0.02 mA" Resistance="1 Ω" />
+
+<item itemtype="ResistorDip" CircId="ResistorDip-318" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-328,-248" rotation="0" hflip="1" vflip="1" label="ResistorDip-318" idLabPos="-24,-40" labelrot="0" valLabPos="4,-26" valLabRot="90" Resistance="100 Ω" Size="8" PullUp="false" PuVolt="5 V" />
+
+<item itemtype="Subcircuit" CircId="74HC595-432" mainComp="false" Show_id="false" Show_Val="false" Pos="-380,-380" rotation="-360" hflip="-1" vflip="1" label="74HC595-432" idLabPos="0,-20" labelrot="0" valLabPos="13,36" valLabRot="-90" Input_High_V="2.5 V" Input_Low_V="2.5 V" Input_Imped="1e+09 Ω" Out_High_V="5 V" Out_Low_V="0 V" Out_Imped="40 Ω" Tpd_ps="10 ns" Tr_ps="3 ns" Tf_ps="4 ns" Logic_Symbol="false" />
+
+<item itemtype="ResistorDip" CircId="ResistorDip-438" mainComp="false" ShowProp="Resistance" Show_id="false" Show_Val="true" Pos="-328,-348" rotation="0" hflip="1" vflip="1" label="ResistorDip-438" idLabPos="-24,-40" labelrot="0" valLabPos="4,-26" valLabRot="90" Resistance="100 Ω" Size="8" PullUp="false" PuVolt="5 V" />
+
+<item itemtype="Seven Segment" CircId="Seven Segment-439" mainComp="false" Show_id="false" Show_Val="false" Pos="-252,-348" rotation="0" hflip="1" vflip="1" label="Seven Segment-439" idLabPos="20,-44" labelrot="0" valLabPos="0,0" valLabRot="0" Color="Yellow" NumDisplays="1" Vertical_Pins="false" CommonCathode="true" Threshold="2.4 V" MaxCurrent="0.02 mA" Resistance="1 Ω" />
+
+<item itemtype="Node" CircId="Node-403" mainComp="false" Pos="-432,-120" />
+
+<item itemtype="Node" CircId="Node-248" mainComp="false" Pos="-632,-120" />
+
+<item itemtype="Node" CircId="Node-245" mainComp="false" Pos="-632,-296" />
+
+<item itemtype="Node" CircId="Node-82" mainComp="false" Pos="-632,-140" />
+
+<item itemtype="Node" CircId="Node-85" mainComp="false" Pos="-632,-248" />
+
+<item itemtype="Node" CircId="Node-88" mainComp="false" Pos="-580,-248" />
+
+<item itemtype="Node" CircId="Node-434" mainComp="false" Pos="-436,-232" />
+
+<item itemtype="Node" CircId="Node-435" mainComp="false" Pos="-440,-240" />
+
+<item itemtype="Node" CircId="Node-436" mainComp="false" Pos="-516,-296" />
+
+<item itemtype="Node" CircId="Node-437" mainComp="false" Pos="-452,-120" />
+
+<item itemtype="Node" CircId="Node-440" mainComp="false" Pos="-244,-120" />
+
+<item itemtype="Connector" uid="Connector-61" startpinid="Resistor-56-lPin" endpinid="Node-85-0" pointList="-632,-204,-632,-248" />
+
+<item itemtype="Connector" uid="Connector-80" startpinid="Resistor-56-rPin" endpinid="Node-82-0" pointList="-632,-172,-632,-140" />
+
+<item itemtype="Connector" uid="Connector-81" startpinid="Capacitor-78-lPin" endpinid="Node-82-1" pointList="-580,-172,-580,-140,-632,-140" />
+
+<item itemtype="Connector" uid="Connector-83" startpinid="Node-82-2" endpinid="Node-248-0" pointList="-632,-140,-632,-120" />
+
+<item itemtype="Connector" uid="Connector-86" startpinid="Node-85-2" endpinid="Push-29-switch0pinN" pointList="-632,-248,-632,-256" />
+
+<item itemtype="Connector" uid="Connector-87" startpinid="Capacitor-78-rPin" endpinid="Node-88-1" pointList="-580,-204,-580,-248" />
+
+<item itemtype="Connector" uid="Connector-89" startpinid="Node-88-2" endpinid="Node-85-1" pointList="-580,-248,-632,-248" />
+
+<item itemtype="Connector" uid="Connector-232" startpinid="p12f675-9-PORTP0" endpinid="74HC595-167-DS" pointList="-476,-248,-436,-248,-436,-256,-420,-256" />
+
+<item itemtype="Connector" uid="Connector-57" startpinid="Fixed Voltage-25-outnod" endpinid="Node-245-0" pointList="-656,-316,-632,-316,-632,-296" />
+
+<item itemtype="Connector" uid="Connector-246" startpinid="Node-245-2" endpinid="Push-29-pinP0" pointList="-632,-296,-632,-288" />
+
+<item itemtype="Connector" uid="Connector-247" startpinid="74HC595-167-!OE" endpinid="Node-403-0" pointList="-420,-248,-432,-248,-432,-120" />
+
+<item itemtype="Connector" uid="Connector-249" startpinid="Node-248-2" endpinid="Ground-79-Gnd" pointList="-632,-120,-632,-112" />
+
+<item itemtype="Connector" uid="Connector-319" startpinid="74HC595-167-Q1" endpinid="ResistorDip-318-resistor0-ePin0" pointList="-372,-272,-344,-272" />
+
+<item itemtype="Connector" uid="Connector-320" startpinid="74HC595-167-Q2" endpinid="ResistorDip-318-resistor1-ePin2" pointList="-372,-264,-344,-264" />
+
+<item itemtype="Connector" uid="Connector-321" startpinid="74HC595-167-Q3" endpinid="ResistorDip-318-resistor2-ePin4" pointList="-372,-256,-344,-256" />
+
+<item itemtype="Connector" uid="Connector-323" startpinid="74HC595-167-Q5" endpinid="ResistorDip-318-resistor4-ePin8" pointList="-372,-240,-344,-240" />
+
+<item itemtype="Connector" uid="Connector-324" startpinid="74HC595-167-Q6" endpinid="ResistorDip-318-resistor5-ePin10" pointList="-372,-232,-344,-232" />
+
+<item itemtype="Connector" uid="Connector-325" startpinid="74HC595-167-Q7" endpinid="ResistorDip-318-resistor6-ePin12" pointList="-372,-224,-344,-224" />
+
+<item itemtype="Connector" uid="Connector-327" startpinid="ResistorDip-318-resistor0-ePin1" endpinid="Seven Segment-160-pin_a" pointList="-312,-272,-276,-272" />
+
+<item itemtype="Connector" uid="Connector-328" startpinid="ResistorDip-318-resistor1-ePin3" endpinid="Seven Segment-160-pin_b" pointList="-312,-264,-276,-264" />
+
+<item itemtype="Connector" uid="Connector-329" startpinid="ResistorDip-318-resistor2-ePin5" endpinid="Seven Segment-160-pin_c" pointList="-312,-256,-276,-256" />
+
+<item itemtype="Connector" uid="Connector-330" startpinid="ResistorDip-318-resistor3-ePin7" endpinid="Seven Segment-160-pin_d" pointList="-312,-248,-276,-248" />
+
+<item itemtype="Connector" uid="Connector-331" startpinid="ResistorDip-318-resistor4-ePin9" endpinid="Seven Segment-160-pin_e" pointList="-312,-240,-276,-240" />
+
+<item itemtype="Connector" uid="Connector-332" startpinid="ResistorDip-318-resistor5-ePin11" endpinid="Seven Segment-160-pin_f" pointList="-312,-232,-276,-232" />
+
+<item itemtype="Connector" uid="Connector-333" startpinid="ResistorDip-318-resistor6-ePin13" endpinid="Seven Segment-160-pin_g" pointList="-312,-224,-276,-224" />
+
+<item itemtype="Connector" uid="Connector-322" startpinid="74HC595-167-Q4" endpinid="ResistorDip-318-resistor3-ePin6" pointList="-372,-248,-344,-248" />
+
+<item itemtype="Connector" uid="Connector-441" startpinid="74HC595-167-Q7'" endpinid="74HC595-432-DS" pointList="-420,-216,-444,-216,-444,-356,-420,-356" />
+
+<item itemtype="Connector" uid="Connector-442" startpinid="74HC595-432-SHC" endpinid="Node-434-1" pointList="-420,-332,-436,-332,-436,-232" />
+
+<item itemtype="Connector" uid="Connector-443" startpinid="p12f675-9-PORTP2" endpinid="Node-434-0" pointList="-476,-232,-436,-232" />
+
+<item itemtype="Connector" uid="Connector-444" startpinid="Node-434-2" endpinid="74HC595-167-SHC" pointList="-436,-232,-420,-232" />
+
+<item itemtype="Connector" uid="Connector-445" startpinid="74HC595-432-STC" endpinid="Node-435-1" pointList="-420,-340,-440,-340,-440,-240" />
+
+<item itemtype="Connector" uid="Connector-446" startpinid="p12f675-9-PORTP1" endpinid="Node-435-0" pointList="-476,-240,-440,-240" />
+
+<item itemtype="Connector" uid="Connector-447" startpinid="Node-435-2" endpinid="74HC595-167-STC" pointList="-440,-240,-420,-240" />
+
+<item itemtype="Connector" uid="Connector-448" startpinid="74HC595-432-!MR" endpinid="Node-436-1" pointList="-420,-324,-516,-324,-516,-296" />
+
+<item itemtype="Connector" uid="Connector-449" startpinid="74HC595-167-!MR" endpinid="Node-436-0" pointList="-420,-224,-460,-224,-460,-296,-516,-296" />
+
+<item itemtype="Connector" uid="Connector-450" startpinid="Node-436-2" endpinid="Node-245-1" pointList="-516,-296,-632,-296" />
+
+<item itemtype="Connector" uid="Connector-451" startpinid="74HC595-432-!OE" endpinid="Node-437-1" pointList="-420,-348,-452,-348,-452,-120" />
+
+<item itemtype="Connector" uid="Connector-452" startpinid="Node-403-2" endpinid="Node-437-0" pointList="-432,-120,-452,-120" />
+
+<item itemtype="Connector" uid="Connector-454" startpinid="74HC595-432-Q1" endpinid="ResistorDip-438-resistor0-ePin0" pointList="-372,-372,-344,-372" />
+
+<item itemtype="Connector" uid="Connector-455" startpinid="74HC595-432-Q2" endpinid="ResistorDip-438-resistor1-ePin2" pointList="-372,-364,-344,-364" />
+
+<item itemtype="Connector" uid="Connector-456" startpinid="74HC595-432-Q3" endpinid="ResistorDip-438-resistor2-ePin4" pointList="-372,-356,-344,-356" />
+
+<item itemtype="Connector" uid="Connector-457" startpinid="74HC595-432-Q4" endpinid="ResistorDip-438-resistor3-ePin6" pointList="-372,-348,-344,-348" />
+
+<item itemtype="Connector" uid="Connector-458" startpinid="74HC595-432-Q5" endpinid="ResistorDip-438-resistor4-ePin8" pointList="-372,-340,-344,-340" />
+
+<item itemtype="Connector" uid="Connector-459" startpinid="74HC595-432-Q6" endpinid="ResistorDip-438-resistor5-ePin10" pointList="-372,-332,-344,-332" />
+
+<item itemtype="Connector" uid="Connector-460" startpinid="74HC595-432-Q7" endpinid="ResistorDip-438-resistor6-ePin12" pointList="-372,-324,-344,-324" />
+
+<item itemtype="Connector" uid="Connector-461" startpinid="ResistorDip-438-resistor0-ePin1" endpinid="Seven Segment-439-pin_a" pointList="-312,-372,-276,-372" />
+
+<item itemtype="Connector" uid="Connector-462" startpinid="ResistorDip-438-resistor1-ePin3" endpinid="Seven Segment-439-pin_b" pointList="-312,-364,-276,-364" />
+
+<item itemtype="Connector" uid="Connector-463" startpinid="ResistorDip-438-resistor2-ePin5" endpinid="Seven Segment-439-pin_c" pointList="-312,-356,-276,-356" />
+
+<item itemtype="Connector" uid="Connector-464" startpinid="ResistorDip-438-resistor3-ePin7" endpinid="Seven Segment-439-pin_d" pointList="-312,-348,-276,-348" />
+
+<item itemtype="Connector" uid="Connector-465" startpinid="ResistorDip-438-resistor4-ePin9" endpinid="Seven Segment-439-pin_e" pointList="-312,-340,-276,-340" />
+
+<item itemtype="Connector" uid="Connector-466" startpinid="ResistorDip-438-resistor5-ePin11" endpinid="Seven Segment-439-pin_f" pointList="-312,-332,-276,-332" />
+
+<item itemtype="Connector" uid="Connector-467" startpinid="ResistorDip-438-resistor6-ePin13" endpinid="Seven Segment-439-pin_g" pointList="-312,-324,-276,-324" />
+
+<item itemtype="Connector" uid="Connector-468" startpinid="Seven Segment-439-pin_commona" endpinid="Node-440-1" pointList="-244,-316,-244,-308,-192,-308,-192,-120,-244,-120" />
+
+<item itemtype="Connector" uid="Connector-469" startpinid="Seven Segment-160-pin_commona" endpinid="Node-440-0" pointList="-244,-216,-244,-120" />
+
+<item itemtype="Connector" uid="Connector-470" startpinid="Node-440-2" endpinid="Node-403-1" pointList="-244,-120,-432,-120" />
+
+<item itemtype="Connector" uid="Connector-477" startpinid="p12f675-9-PORTP5" endpinid="Node-88-0" pointList="-524,-248,-580,-248" />
+
+<item itemtype="Connector" uid="Connector-478" startpinid="Node-437-2" endpinid="Node-248-1" pointList="-452,-120,-632,-120" />
+
+</circuit>
