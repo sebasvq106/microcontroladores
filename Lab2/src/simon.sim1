@@ -54,13 +54,13 @@
 
 <item itemtype="Ground" CircId="Ground-59" mainComp="false" Show_id="false" Show_Val="false" Pos="-576,-60" rotation="0" hflip="1" vflip="1" label="Ground-59" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="TextComponent" CircId="TextComponent-75" mainComp="false" Show_id="false" Show_Val="false" Pos="-608,-220" rotation="0" hflip="1" vflip="1" label="TextComponent-75" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Margin="0 _px" Border="0 _px" Color="#ff0000" Opacity="1" Font="RED" Font_Color="#aa0000" Font_Size="10 _px" Fixed_Width="true" />
+<item itemtype="TextComponent" CircId="TextComponent-75" mainComp="false" Show_id="false" Show_Val="false" Pos="-608,-220" rotation="0" hflip="1" vflip="1" label="TextComponent-75" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Margin="0 _px" Border="0 _px" Color="#ff0000" Opacity="1" Font="RED" Font_Color="#aa0000" Font_Size="10 _px" Fixed_Width="false" />
 
-<item itemtype="TextComponent" CircId="TextComponent-76" mainComp="false" Show_id="false" Show_Val="false" Pos="-544,-220" rotation="0" hflip="1" vflip="1" label="TextComponent-76" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Margin="0 _px" Border="0 _px" Color="#00aa00" Opacity="1" Font="RED" Font_Color="#aa0000" Font_Size="10 _px" Fixed_Width="true" />
+<item itemtype="TextComponent" CircId="TextComponent-76" mainComp="false" Show_id="false" Show_Val="false" Pos="-544,-220" rotation="0" hflip="1" vflip="1" label="TextComponent-76" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Margin="0 _px" Border="0 _px" Color="#00aa00" Opacity="1" Font="RED" Font_Color="#aa0000" Font_Size="10 _px" Fixed_Width="false" />
 
-<item itemtype="TextComponent" CircId="TextComponent-77" mainComp="false" Show_id="false" Show_Val="false" Pos="-480,-220" rotation="0" hflip="1" vflip="1" label="TextComponent-77" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Margin="0 _px" Border="0 _px" Color="#ffff00" Opacity="1" Font="RED" Font_Color="#aa0000" Font_Size="10 _px" Fixed_Width="true" />
+<item itemtype="TextComponent" CircId="TextComponent-77" mainComp="false" Show_id="false" Show_Val="false" Pos="-480,-220" rotation="0" hflip="1" vflip="1" label="TextComponent-77" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Margin="0 _px" Border="0 _px" Color="#ffff00" Opacity="1" Font="RED" Font_Color="#aa0000" Font_Size="10 _px" Fixed_Width="false" />
 
-<item itemtype="TextComponent" CircId="TextComponent-78" mainComp="false" Show_id="false" Show_Val="false" Pos="-416,-220" rotation="0" hflip="1" vflip="1" label="TextComponent-78" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Margin="0 _px" Border="0 _px" Color="#0000ff" Opacity="1" Font="RED" Font_Color="#aa0000" Font_Size="10 _px" Fixed_Width="true" />
+<item itemtype="TextComponent" CircId="TextComponent-78" mainComp="false" Show_id="false" Show_Val="false" Pos="-416,-220" rotation="0" hflip="1" vflip="1" label="TextComponent-78" idLabPos="-16,-24" labelrot="0" valLabPos="-16,20" valLabRot="0" Margin="0 _px" Border="0 _px" Color="#0000ff" Opacity="1" Font="RED" Font_Color="#aa0000" Font_Size="10 _px" Fixed_Width="false" />
 
 <item itemtype="Node" CircId="Node-13" mainComp="false" Pos="-68,-120" />
 
