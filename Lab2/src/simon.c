@@ -2,8 +2,7 @@
 #include <util/delay.h>
 #include <stdlib.h> 
 
-#define NUM_LEDS 4
-#define LED_DELAY 20000 
+
 #define BLINK_DELAY 10000 
 
 typedef enum {
@@ -14,29 +13,50 @@ typedef enum {
 
 // Variables globales para los contadores
 
-uint8_t secuencia_leds[10];
-uint8_t secuencia_botones[10];
+uint8_t secuencia_leds[14];
+uint8_t secuencia_botones[14];
 uint8_t indice_input = 0;
+uint8_t NUM_LEDS = 4;
+uint16_t LED_DELAY = 20000;
 Estado estado_actual = IDLE;
 
 // Array que contiene los pines de los LEDs (PB3, PB4, PB5, PB6)
-uint8_t led_pins[NUM_LEDS] = { PB3, PB4, PB5, PB6 };
+uint8_t led_pins[4] = { PB3, PB4, PB5, PB6 };
 
 void turn_on_leds(uint8_t led_mask) {
     PORTB = led_mask;
 }
 
-void show_random_sequence() {
-    for (uint8_t i = 0; i < NUM_LEDS; i++) {
-        uint8_t random_index = rand() % NUM_LEDS;
-        uint8_t led = (1 << led_pins[random_index]);
-        turn_on_leds(led);
-        _delay_ms(LED_DELAY);
-        PORTB = 0x00; // Apagar todos los LEDs
-        _delay_ms(10000); // Tiempo de espera entre LEDs
+void delay_ms_variable(uint16_t delay) {
+    while (delay--) {
+        _delay_ms(1);  // Esperar 1 ms en cada iteración
     }
+}
+
+void show_random_sequence() {
+
+    if (NUM_LEDS == 4){
+	    for (uint8_t i = 0; i < NUM_LEDS; i++) {
+		uint8_t random_index = rand() % 4;
+		uint8_t led = (1 << led_pins[random_index]);
+		secuencia_leds[i] = random_index;
+		turn_on_leds(led);
+		delay_ms_variable(LED_DELAY);
+		PORTB = 0x00; // Apagar todos los LEDs
+		_delay_ms(10000); // Tiempo de espera entre LEDs
+	    }
+    } else {
     
-    estado_actual = INPUT;
+    uint8_t random_index = rand() % 4;
+    secuencia_leds[NUM_LEDS - 1] = random_index;
+    for (uint8_t i = 0; i < NUM_LEDS; i++) {
+        uint8_t led = (1 << led_pins[secuencia_leds[i]]);
+        turn_on_leds(led);
+        delay_ms_variable(LED_DELAY);
+        PORTB = 0x00;  // Apagar todos los LEDs
+        _delay_ms(10000);  // Tiempo de espera entre LEDs
+    }
+   }
 }
 
 uint8_t comparar_secuencias() {
@@ -77,39 +97,55 @@ int main(void) {
 
             case SECUENCIA:
                 show_random_sequence();
-                // estado_actual = INPUT; 
+                estado_actual = INPUT; 
                 break;
                 
            case INPUT: 
-           	 if (indice_input < NUM_LEDS) {
-                    if ((PIND & (1 << PD5))) {
-                        secuencia_botones[indice_input] = 0;
-                        indice_input++;
-                        _delay_ms(5000); // Evitar rebotes
-                    }
-                    if ((PIND & (1 << PD4))) {
-                        secuencia_botones[indice_input] = 1;
-                        indice_input++;
-                        _delay_ms(5000); // Evitar rebotes
-                    }
-                    if ((PIND & (1 << PD3))) {
-                        secuencia_botones[indice_input] = 2;
-                        indice_input++;
-                        _delay_ms(5000); // Evitar rebotes
-                    }
-                    if ((PIND & (1 << PD2))) {
-                        secuencia_botones[indice_input] = 3;
-                        indice_input++;
-                        _delay_ms(5000); // Evitar rebotes
-                    }
-                } else {
-                    if (comparar_secuencias()) {
-                        // Si la secuencia es correcta, encender el LED PB4
-                        PORTB |= (1 << PB5);
-                    }
-                    estado_actual = IDLE;
-                    indice_input = 0; // Reiniciar índice de entrada
-                }
+           	while(indice_input < NUM_LEDS) {
+           		if ((PIND & (1 << PD5))) {
+           		secuencia_botones[indice_input] = 3;
+           		_delay_ms(5000);
+           		indice_input++;
+           		}
+           		
+           		if ((PIND & (1 << PD4))){
+           		secuencia_botones[indice_input] = 2;
+           		_delay_ms(5000);
+           		indice_input++;
+           		}
+           		
+           		if ((PIND & (1 << PD3))){
+           		secuencia_botones[indice_input] = 1;
+           		_delay_ms(5000);
+           		indice_input++;
+           		}
+           		
+           		if ((PIND & (1 << PD2))){
+           		secuencia_botones[indice_input] = 0;
+           		_delay_ms(5000);
+           		indice_input++;
+           		}
+           		estado_actual = INPUT;
+           	}
+           	
+           	if (comparar_secuencias()){
+           		indice_input = 0;
+           		NUM_LEDS++;
+           		LED_DELAY = LED_DELAY - 2000;
+           		estado_actual = SECUENCIA;
+           	} else {
+           	
+           		for (uint8_t i = 0; i < 3; i++) {
+                        turn_on_leds((1 << PB3) | (1 << PB4) | (1 << PB5) | (1 << PB6)); // Encender todos los LEDs
+                        _delay_ms(10000); // Esperar 10000 ms (10 segundos)
+                        PORTB = 0x00; // Apagar todos los LEDs
+                        _delay_ms(10000); // Esperar 10000 ms (10 segundos)
+                    	}
+                    	indice_input = 0;
+                    	NUM_LEDS = 4;
+                    	LED_DELAY = 20000;
+		   	estado_actual = IDLE;
+           	}
                 break;
         }
     }
