@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 import serial
-import csv
 
 # Configuración del puerto serial
 ser = serial.Serial(
