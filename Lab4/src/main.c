@@ -8,6 +8,7 @@
 #include "spi.h"
 #include "gfx.h"
 #include "gpio.h"
+#include "usart.h"
 
 
 #define REG_WHO_AM_I		0x0F   // Registro identificador del giroscopio 
@@ -27,6 +28,7 @@
 #define GYR_OUT_Z_H		0x2D
 
 #define L3GD20_SENSIBILIDAD  (0.004375F)  // Sensibilidad del giroscopio
+#define USART1_TX_PIN GPIO9
 
 // Estructura para almacenar las lecturas de los ejes X, Y, y Z del giroscopio
 typedef struct Gyro {
@@ -39,9 +41,10 @@ typedef struct Gyro {
 uint8_t spi_send_data(uint16_t reg, uint16_t val);
 int16_t read_axis(uint8_t lsb_command, uint8_t msb_command);
 gyro read_xyz(void); 
-void display_data(gyro lectura);
+void display_data(gyro lectura, bool is_active);
 void delay(void);  
 void init_sytem(void);
+void send_data_usart(gyro measurement);
 
 // Funcion para comunicarse por SPI
 uint8_t spi_send_data(uint16_t reg, uint16_t val) {
@@ -111,7 +114,7 @@ gyro read_xyz(void) {
 
 
 // Funcion para mostrar los datos en la pantalla LCD
-void display_data(gyro measurement) {
+void display_data(gyro measurement, bool is_active) {
     char display_str[50];
     
     // Limpiar la pantalla y configurar el texto
@@ -141,6 +144,16 @@ void display_data(gyro measurement) {
     gfx_setCursor(20, 130);
     gfx_puts(display_str);
 
+    gfx_setTextSize(2);
+    gfx_setTextColor(LCD_BLACK, LCD_WHITE);
+    if (is_active) {
+        gfx_setCursor(20, 270);  
+        gfx_puts("Env Datos: Si");
+    } else {
+        gfx_setCursor(20, 270);  
+        gfx_puts("Env Datos: No ");
+    }
+
     lcd_show_frame();
 }
 
@@ -152,6 +165,52 @@ void delay(void) {
     }
 }
 
+// Funcion de gpio setup 
+static void gpio_setup(void)
+{
+	/* Enable GPIOG clock. */
+	rcc_periph_clock_enable(RCC_GPIOG);
+
+	/* Set GPIO13 (in GPIO port G) to 'output push-pull'. */
+	gpio_mode_setup(GPIOG, GPIO_MODE_OUTPUT,
+			GPIO_PUPD_NONE, GPIO13);
+}
+
+// Funcion del button setup
+static void button_setup(void)
+{
+	/* Enable GPIOA clock. */
+	rcc_periph_clock_enable(RCC_GPIOA);
+
+	/* Set GPIO0 (in GPIO port A) to 'input open-drain'. */
+	gpio_mode_setup(GPIOA, GPIO_MODE_INPUT, GPIO_PUPD_NONE, GPIO0);
+}
+
+// Funcion de configuracion del uart
+static void usart_setup(void)
+{
+	/* Setup USART2 parameters. */
+	usart_set_baudrate(USART1, 115200);
+	usart_set_databits(USART1, 8);
+	usart_set_stopbits(USART1, USART_STOPBITS_1);
+	usart_set_mode(USART1, USART_MODE_TX);
+	usart_set_parity(USART1, USART_PARITY_NONE);
+	usart_set_flow_control(USART1, USART_FLOWCONTROL_NONE);
+
+	/* Finally enable the USART. */
+	usart_enable(USART1);
+}
+
+// Funcion para enviar los datos por UART
+void send_data_usart(gyro measurement) {
+    char buffer[100];
+    // Formato de los datos a enviar
+    sprintf(buffer, "X: %d, Y: %d, Z: %d\n", measurement.x, measurement.y, measurement.z);
+    for (int i = 0; buffer[i] != '\0'; i++) {
+        usart_send_blocking(USART1, buffer[i]); 
+    }
+}
+
 // Funcion para inicializar todo el sistema
 void init_sytem(void) {
     console_setup(115200);
@@ -160,17 +219,43 @@ void init_sytem(void) {
     spi_setup();
     lcd_spi_init();
     gfx_init(lcd_draw_pixel, 240, 320);
+    button_setup();
+	gpio_setup();
+    usart_setup();
 }
 
 // Funcion main
 int main(void) {
     gyro measurement;
     init_sytem();
+    int i;
+    bool is_active = false;
 
     while (1) {
         measurement = read_xyz();  
-        display_data(measurement);  
-        delay(); 
+        display_data(measurement, is_active);  
+        delay();
+
+        if (gpio_get(GPIOA, GPIO0)) {
+            
+            is_active = !is_active;
+
+            for (i = 0; i < 300000; i++) {
+                __asm__("nop");
+            }
+        }
+
+        if (is_active) {
+            send_data_usart(measurement); // Enviar mediciones
+
+            // Control del LED: Parpadeo
+            gpio_toggle(GPIOG, GPIO13); // Alternar el estado del LED
+            for (i = 0; i < 3000000; i++) {		/* Wait a bit. */
+			    __asm__("nop");
+		    }
+        } else {
+            gpio_clear(GPIOG, GPIO13); // Asegúrate de que el LED esté apagado si no está activo
+        } 
     }
-    return 0;  
+    return 0; 
 }
