@@ -9,6 +9,7 @@
 #include "gfx.h"
 #include "gpio.h"
 #include "usart.h"
+#include "adc.h"
 
 
 #define REG_WHO_AM_I		0x0F   // Registro identificador del giroscopio 
@@ -41,10 +42,10 @@ typedef struct Gyro {
 uint8_t spi_send_data(uint16_t reg, uint16_t val);
 int16_t read_axis(uint8_t lsb_command, uint8_t msb_command);
 gyro read_xyz(void); 
-void display_data(gyro lectura, bool is_active);
+void display_data(gyro lectura, bool is_active, float bateria);
 void delay(void);  
 void init_sytem(void);
-void send_data_usart(gyro measurement);
+void send_data_usart(gyro measurement, float bateria);
 
 // Funcion para comunicarse por SPI
 uint8_t spi_send_data(uint16_t reg, uint16_t val) {
@@ -114,7 +115,7 @@ gyro read_xyz(void) {
 
 
 // Funcion para mostrar los datos en la pantalla LCD
-void display_data(gyro measurement, bool is_active) {
+void display_data(gyro measurement, bool is_active, float bateria) {
     char display_str[50];
     
     // Limpiar la pantalla y configurar el texto
@@ -144,7 +145,18 @@ void display_data(gyro measurement, bool is_active) {
     gfx_setCursor(20, 130);
     gfx_puts(display_str);
 
-    gfx_setTextSize(2);
+    // Bateria
+    if (bateria > 7.0f) {
+        gfx_setTextColor(LCD_GREEN, LCD_WHITE); // Color verde para batería > 7V
+    } else {
+        gfx_setTextColor(LCD_RED, LCD_WHITE); // Color rojo para batería <= 7V
+    }
+
+    sprintf(display_str, "Bateria:%.1f V", bateria);
+    gfx_setCursor(20, 200);
+    gfx_puts(display_str);
+
+    // Transmision
     gfx_setTextColor(LCD_BLACK, LCD_WHITE);
     if (is_active) {
         gfx_setCursor(20, 270);  
@@ -174,6 +186,8 @@ static void gpio_setup(void)
 	/* Set GPIO13 (in GPIO port G) to 'output push-pull'. */
 	gpio_mode_setup(GPIOG, GPIO_MODE_OUTPUT,
 			GPIO_PUPD_NONE, GPIO13);
+
+    gpio_mode_setup(GPIOG, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO14);
 }
 
 // Funcion del button setup
@@ -202,19 +216,43 @@ static void usart_setup(void)
 }
 
 // Funcion para enviar los datos por UART
-void send_data_usart(gyro measurement) {
+void send_data_usart(gyro measurement, float bateria) {
     char buffer[100];
     // Formato de los datos a enviar
-    sprintf(buffer, "X: %d, Y: %d, Z: %d\n", measurement.x, measurement.y, measurement.z);
+    sprintf(buffer, "X: %d, Y: %d, Z: %d, Bateria: %.1f V\n", measurement.x, measurement.y, measurement.z, bateria);
     for (int i = 0; buffer[i] != '\0'; i++) {
         usart_send_blocking(USART1, buffer[i]); 
     }
+}
+
+// Configuracion del ADC
+static void adc_setup(void)
+{
+	gpio_mode_setup(GPIOA, GPIO_MODE_ANALOG, GPIO_PUPD_NONE, GPIO3);
+	adc_power_off(ADC1);
+	adc_disable_scan_mode(ADC1);
+	adc_set_sample_time_on_all_channels(ADC1, ADC_SMPR_SMP_3CYC);
+	adc_power_on(ADC1);
+
+}
+
+// Lectura del adc
+static uint16_t read_adc_naiive(uint8_t channel)
+{
+	uint8_t channel_array[16];
+	channel_array[0] = channel;
+	adc_set_regular_sequence(ADC1, 1, channel_array);
+	adc_start_conversion_regular(ADC1);
+	while (!adc_eoc(ADC1));
+	uint16_t reg16 = adc_read_regular(ADC1);
+	return reg16;
 }
 
 // Funcion para inicializar todo el sistema
 void init_sytem(void) {
     console_setup(115200);
     clock_setup();
+    rcc_periph_clock_enable(RCC_ADC1);
     sdram_init();
     spi_setup();
     lcd_spi_init();
@@ -222,6 +260,7 @@ void init_sytem(void) {
     button_setup();
 	gpio_setup();
     usart_setup();
+    adc_setup();
 }
 
 // Funcion main
@@ -230,10 +269,14 @@ int main(void) {
     init_sytem();
     int i;
     bool is_active = false;
+    uint16_t input_adc;
+    float bateria;
 
     while (1) {
-        measurement = read_xyz();  
-        display_data(measurement, is_active);  
+        measurement = read_xyz();
+        input_adc = read_adc_naiive(3);
+        bateria =  (input_adc * 9.0f) / 4095.0f; 
+        display_data(measurement, is_active, bateria);  
         delay();
 
         if (gpio_get(GPIOA, GPIO0)) {
@@ -246,7 +289,7 @@ int main(void) {
         }
 
         if (is_active) {
-            send_data_usart(measurement); // Enviar mediciones
+            send_data_usart(measurement, bateria); // Enviar mediciones
 
             // Control del LED: Parpadeo
             gpio_toggle(GPIOG, GPIO13); // Alternar el estado del LED
@@ -256,6 +299,15 @@ int main(void) {
         } else {
             gpio_clear(GPIOG, GPIO13); // Asegúrate de que el LED esté apagado si no está activo
         } 
+
+        if (bateria < 7.0f) {
+            gpio_toggle(GPIOG, GPIO14); // Alternar el estado del LED en PG14
+            for (i = 0; i < 1000000; i++) { /* Esperar un tiempo para el parpadeo */
+                __asm__("nop");
+            }
+        } else {
+            gpio_clear(GPIOG, GPIO14);
+        }
     }
     return 0; 
 }
