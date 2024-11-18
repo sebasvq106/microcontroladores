@@ -1,10 +1,20 @@
-OBJS = sdram.o clock.o console.o lcd-spi.o gfx.o
+# Lets get the name of the project, it is used all over in rules.mk
+MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
+PROJECT := $(notdir $(patsubst %/,%,$(dir $(MKFILE_PATH))))
 
-BINARY = main
+#Path to libopen
+OPENCM3_DIR = ../../libopencm3
+#Our build folder for all binaries and object files
+BUILD_DIR = build
 
-# we use sin/cos from the library
-LDLIBS += -lm
+# Include project specific settings
+include project.mk
 
-LDSCRIPT = ../stm32f429i-discovery.ld
+#Include configuration for linker file
+include $(OPENCM3_DIR)/mk/genlink-config.mk
 
-include ../../Makefile.include
+#Include main rules
+include ../../rules.mk
+
+#Include rules for linker file
+include $(OPENCM3_DIR)/mk/genlink-rules.mk
